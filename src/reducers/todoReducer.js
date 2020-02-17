@@ -2,7 +2,7 @@ export const initialState = {
     todos: [
         {
             item: 'Learn about reducers',
-            completed: false,
+            completed: true,
             id: 0
         },
         {
@@ -15,8 +15,7 @@ export const initialState = {
 
 export const todoReducer = (state, action ) => {
     switch (action.type) {
-        case 'ADD_ITEM':
-            console.log(state.todos);
+        case 'ADD_ITEM':            
             return {
                 ...state,
                 todos: [...state.todos, {
@@ -25,5 +24,21 @@ export const todoReducer = (state, action ) => {
                     id: Date.now()
                 }]
             }
+        case 'TOGGLE_COMPLETED':
+            let newTodos = state.todos.map(item => {
+                if (item.id === action.payload){                    
+                    return {
+                        item: item.item,
+                        completed: !item.completed,
+                        id: item.id
+                    }
+                } else return item
+            });            
+            return {
+                ...state,
+                todos: newTodos
+            }
+        default:
+            return state;
     }
 }

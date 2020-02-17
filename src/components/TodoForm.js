@@ -16,10 +16,12 @@ class TodoForm extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.dispatch({
-            type: 'ADD_ITEM',
-            payload: this.state.newItem
-        })
+        if (this.state.newItem !== '') {
+            this.props.dispatch({
+                type: 'ADD_ITEM',
+                payload: this.state.newItem
+            })
+        }        
         this.setState({newItem: ''});
     };
 
